@@ -3,6 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+dnf install -y bind-utils
+
 #Set Variables
 LOG_PATH="${LOG_PATH:-/root/initialConfig.log}"
 BOLD="\e[1m"
