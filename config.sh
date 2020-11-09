@@ -22,7 +22,6 @@ HTML_FILE="https://raw.githubusercontent.com/jordankcarlson/vps_config/main/inde
 WEBSITE=$1
 WEBAPPS=$2
 
-
 #If Fatal Error Occurs - Print Out Message Before Exiting Script
 fatal() {
 	echo -e "${RED}${BOLD}ERR:${EMODE} $1"
@@ -33,10 +32,6 @@ fatal() {
 
 #Set Timezone to Central
 timedatectl set-timezone America/Chicago
-
-#Update System
-yum update -y centos-repos
-
 
 dnf clean all
 dnf update -y
@@ -110,4 +105,3 @@ python3 -m pip install -U pip requests
 python3 -m pip install -U wheel
 python3 -m pip install -U virtualenvwrapper
 python3 -m pip install -U xvfbwrapper selenium pyautogui pillow pytesseract argparse opencv-python cv2-tools bcrypt twilio cryptography opencv-contrib-python
-
