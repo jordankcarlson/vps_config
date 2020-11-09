@@ -40,17 +40,25 @@ dnf install -y dnf-plugins-core
 dnf install -y dnf-automatic 
 systemctl enable --now dnf-automatic-download.timer
 systemctl enable --now dnf-automatic-install.timer
+dnf install -y epel-release
+dnf upgrade -y
 #sudo dnf config-manager --set-enabled c8-media-BaseOS c8-media-AppStream
 dnf config-manager --add-repo $RHEL_HASI_REPO
-dnf config-manager --add-repo $RHEL_EPEL_URL
+#dnf config-manager --add-repo $RHEL_EPEL_URL
 dnf config-manager --add-repo $TESSERACT_REPO
 dnf config-manager --set-enabled PowerTools
 rpm --import $TESSERACT_PKEY
 dnf install -y zip 
 dnf install -y unzip
 dnf install -y nano 
-dnf install -y epel-release 
 dnf install -y yum-utils 
+yum install -y snapd
+systemctl enable --now snapd.socket
+ln -s /var/lib/snapd/snap /snap
+snap install core
+snap refresh core
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
 dnf install -y nginx 
 dnf install -y python3
 dnf install -y python3-pip
@@ -59,9 +67,6 @@ dnf install -y qrencode
 dnf install -y wget
 dnf install -y fail2ban 
 dnf install -y google-authenticator
-snap install core
-snap refresh core
-dnf install -y certbot
 dnf install -y python3-certbot-nginx
 dnf install -y tesseract
 dnf install -y tesseract-langpack-eng
@@ -99,7 +104,7 @@ systemctl restart nginx
 
 cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
 sed -i "s+/var/www/html+/var/www/$WEBSITE/html+g" /etc/httpd/conf/httpd.conf
-#certbot --nginx -d www.$WEBSITE -d $WEBSITE
+certbot --nginx -d www.$WEBSITE -d $WEBSITE
 
 python3 -m pip install -U pip requests
 python3 -m pip install -U wheel
