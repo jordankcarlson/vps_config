@@ -23,7 +23,6 @@ WEBSITE=$1
 WEBAPPS=$2
 
 
-
 #If Fatal Error Occurs - Print Out Message Before Exiting Script
 fatal() {
 	echo -e "${RED}${BOLD}ERR:${EMODE} $1"
@@ -31,9 +30,6 @@ fatal() {
 	popd > /dev/null 2>&1
 	exit 1
 }
-
-#Change Password
-passwd
 
 #Set Timezone to Central
 timedatectl set-timezone America/Chicago
